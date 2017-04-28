@@ -1,15 +1,16 @@
 
 -- Punto 1: Modelado de Cliente
 
-data Cliente = UnCliente { resistencia :: Int,
+data Cliente = UnCliente { nombre :: [char],
+                           resistencia :: Int,
 						   amigos :: [Cliente] } deriving (Show, Eq)
 						   
 -- Punto 2: Modelo Rodri, Marcos, Cristian y Ana
 
-rodri = UnCliente 55 []
-marcos = UnCliente 40 [rodri]
-cristian = UnCliente 2 []
-ana = UnCliente 120 [marcos, rodri]
+rodri = UnCliente Rodri 55 []
+marcos = UnCliente Marcos 40 [rodri]
+cristian = UnCliente Cristian 2 []
+ana = UnCliente Ana 120 [marcos, rodri]
 
 -- Punto 3: Funcion comoEsta
 
@@ -23,3 +24,7 @@ estaFresco cliente = (resistencia cliente) > 50
 masDeUnAmigo cliente = (length(amigos cliente)) > 1 
 
 -- Punto 4: 
+reconocerAmigo cliente amigo
+	|(nombre cliente == nombre amigo) = error "No se puede ser amigo de uno mismo"
+	| any (nombre amigo) (amigos cliente) = error "Ya es amigo"
+	| otherwise = UnCliente { (nombre cliente) (resistencia cliente) (amigos cliente):(nombre amigo)}
